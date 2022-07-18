@@ -1,10 +1,10 @@
 $(function(){
     $("#bPadrinho").click(function(){
-        alert("Entrar como padrinho!");
+        $("#dPrincipal").load("padrinho.html");
     });
 
     $("#bConvidado").click(function(){
-        alert("Entrar como convidado!");
+        $("#dPrincipal").load("convidado.html");
     });
 
     $("#bCancelar").click(function(){
@@ -12,6 +12,6 @@ $(function(){
     });
 
     $("#bEntrar").click(function(){
-        
+
     });
 })
