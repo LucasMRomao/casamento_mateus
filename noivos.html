@@ -61,6 +61,11 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlterarNoivo">Noivos</button>&nbsp;
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlterarPadrinho">Padrinhos</button>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Presentes selecionados</h2>
+            </div>
+        </div>
         <div id="dListaPresentes">
 
         </div>
@@ -116,6 +121,7 @@
             }else{
                 db.collection("credenciais_noivos").doc("mqopqcTwcfQpXUYrCby7").update({senha: newPass});
                 alert("Senha alterada com sucesso!");
+                $("#iNovaSenhaNoivos").val('');
             }
         });
 
@@ -132,6 +138,7 @@
             }else{
                 db.collection("credenciais_padrinhos").doc("T0gi5vNZw0ZG6t9EXClr").update({senha: newPass});
                 alert("Senha alterada com sucesso!");
+                $("#iNovaSenhaPadrinhos").val('');
             }
         });
     });
