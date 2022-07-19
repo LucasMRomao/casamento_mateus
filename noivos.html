@@ -1,1 +1,42 @@
-<h1>Tela dos noivos</h1>
+<div class="container-fluid" id="dMain">
+    <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
+        <div id="dListaPresentes">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfEVMcjvEc5aP48EGZKNGvApYBmpPxluw",
+            authDomain: "casamento-mateus.firebaseapp.com",
+            projectId: "casamento-mateus",
+            storageBucket: "casamento-mateus.appspot.com",
+            messagingSenderId: "514547738129",
+            appId: "1:514547738129:web:fc9ac8cfe7a68ad21433b0",
+            measurementId: "G-35M59W0GLJ"
+        };
+
+        if(!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const db = firebase.firestore();
+
+        db.collection("lista_presentes").onSnapshot((data) => {
+            data.docs.map((val) => {
+                let nome = val.data().nome;
+                let presente = val.data().presente;
+
+                $presente = "<div class='alert alert-success' style='margin-top: 10px;'>";
+                $presente += "<span><b>" + nome + "</b></span><br/>";
+                $presente += "<span>" + presente + "</span>";
+                $presente += "</div>"; //Close div alert
+                $("#dListaPresentes").append($presente);
+            });
+        });
+    });
+</script>
