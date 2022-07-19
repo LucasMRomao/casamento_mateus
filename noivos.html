@@ -26,7 +26,7 @@
         const provider = new firebase.auth.GoogleAuthProvider();
         const db = firebase.firestore();
 
-        db.collection("lista_presentes").onSnapshot((data) => {
+        db.collection("presentes_selecionados").onSnapshot((data) => {
             data.docs.map((val) => {
                 let nome = val.data().nome;
                 let presente = val.data().presente;
