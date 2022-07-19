@@ -18,10 +18,6 @@ $(function(){
     const provider = new firebase.auth.GoogleAuthProvider();
     const db = firebase.firestore();
 
-    $("#bPadrinho").click(function(){
-        $("#dPrincipal").load("padrinho.html");
-    });
-
     $("#bConvidado").click(function(){
         $("#dPrincipal").load("convidado.html");
     });
@@ -39,6 +35,27 @@ $(function(){
 
                 if(senha == dbPassword){
                     $("#dPrincipal").load("noivos.html");
+                }else{
+                    alert("Senha inválida!");
+                    $("#iSenha").val('');
+                }
+            });
+        });
+    });
+
+    $("#bCancelarPadrinho").click(function(){
+        $("#iSenhaPadrinho").val('');
+    });
+
+    $("#bEntrarPadrinho").click(function(){
+        let senha = $("#iSenhaPadrinho").val();
+
+        db.collection('credenciais_padrinhos').onSnapshot((data) =>{
+            data.docs.map((val) => {
+                let dbPassword = val.data().senha;
+
+                if(senha == dbPassword){
+                    $("#dPrincipal").load("padrinho.html");
                 }else{
                     alert("Senha inválida!");
                     $("#iSenha").val('');

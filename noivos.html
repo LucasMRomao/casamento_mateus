@@ -1,5 +1,61 @@
+<!--Modal alterar senha noivos-->
+<div class="modal fade" id="modalAlterarNoivo" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alterar senha dos noivos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Nova senha:</span>
+                </div>
+                <input type="password" id="iNovaSenhaNoivos" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="bCancelarNoivos">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bSalvarNoivos">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--Modal alterar senha padrinhos-->
+<div class="modal fade" id="modalAlterarPadrinho" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alterar senha dos padrinhos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Nova senha:</span>
+                </div>
+                <input type="password" id="iNovaSenhaPadrinhos" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="bCancelarPadrinhos">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bSalvarPadrinhos">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid" id="dMain">
     <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlterarNoivo">Noivos</button>&nbsp;
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAlterarPadrinho">Padrinhos</button>
+        </div>
         <div id="dListaPresentes">
 
         </div>
@@ -40,6 +96,38 @@
                 $presente += "</div>"; //Close div alert
                 $("#dListaPresentes").append($presente);
             });
+        });
+
+        $("#bCancelarNoivos").click(function(){
+            $("#iNovaSenhaNoivos").val('');
+        });
+
+        $("#bSalvarNoivos").click(function(){
+            let newPass = $("#iNovaSenhaNoivos").val();
+
+            if(newPass == ''){
+                alert("Por favor, insira a nova senha!");
+                return false;
+            }else{
+                db.collection("credenciais_noivos").doc("mqopqcTwcfQpXUYrCby7").update({senha: newPass});
+                alert("Senha alterada com sucesso!");
+            }
+        });
+
+        $("#bCancelarPadrinhos").click(() => {
+            $("#iNovaSenhaPadrinhos").val('');
+        });
+
+        $("#bSalvarPadrinhos").click(() => {
+            let newPass = $("#iNovaSenhaPadrinhos").val();
+
+            if(newPass == ''){
+                alert("Por favor, insira a nova senha!");
+                return false;
+            }else{
+                db.collection("credenciais_padrinhos").doc("T0gi5vNZw0ZG6t9EXClr").update({senha: newPass});
+                alert("Senha alterada com sucesso!");
+            }
         });
     });
 </script>

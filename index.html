@@ -9,6 +9,32 @@
         <link rel="stylesheet" href="assets/css/style.css">
     </head>
     <body>
+        <!--Modal logar padrinho-->
+        <div class="modal fade" id="modalPadrinhos" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Entrar como padrinho</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Senha:</span>
+                      </div>
+                      <input type="password" id="iSenhaPadrinho" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="bCancelarPadrinho">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="bEntrarPadrinho">Entrar</button>
+              </div>
+            </div>
+          </div>
+      </div>
+
         <!--Modal logar noivo-->
         <div class="modal fade" id="modalNoivos" tabindex="-1">
             <div class="modal-dialog">
@@ -40,7 +66,7 @@
                 <div class="col-12">
                     <b>Selecione uma opção:</b>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" class="btn btn-primary" id="bPadrinho">Padrinho</button>&nbsp;
+                        <button type="button" class="btn btn-primary" id="bPadrinho" data-toggle="modal" data-target="#modalPadrinhos">Padrinho</button>&nbsp;
                         <button type="button" class="btn btn-primary" id="bConvidado">Convidado</button>&nbsp;
                         <button type="button" class="btn btn-primary" id="bNoivo" data-toggle="modal" data-target="#modalNoivos">Noivo(a)</button>
                     </div>

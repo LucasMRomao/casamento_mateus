@@ -43,11 +43,11 @@
                 let descricao = val.data().descricao;
                 let disponivel = val.data().disponivel;
 
-                if(disponivel){
+                if(quantidade > 0){
                     $opcao = "<div class='input-group'>";
                     $opcao += "<div class='input-group-prepend'>";
                     $opcao += "<div class='input-group-text'>";
-                    $opcao += "<input type='radio' presente-id='" + val.id + "' name='presente' value='";
+                    $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + quantidade + "' name='presente' value='";
                     $opcao += "0" + quantidade + " " + descricao + "'>";
                     $opcao += "</div>"; //Close div input-group-text
                     $opcao += "</div>"; //Close div input-group-prepend
@@ -74,7 +74,8 @@
                 });
 
                 let presente_id = $("input[name='presente']:checked").attr("presente-id");
-                db.collection("presentes").doc(presente_id).update({disponivel: false});
+                let presente_cont = $("input[name='presente']:checked").attr("presente-cont");
+                db.collection("presentes").doc(presente_id).update({quantidade: presente_cont - 1});
 
                 alert("Enviado com sucesso!");
             }
