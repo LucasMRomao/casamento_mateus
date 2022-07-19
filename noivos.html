@@ -27,6 +27,7 @@
         const db = firebase.firestore();
 
         db.collection("presentes_selecionados").onSnapshot((data) => {
+            $("#dListaPresentes").html("");
             data.docs.map((val) => {
                 let nome = val.data().nome;
                 let presente = val.data().presente;
