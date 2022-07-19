@@ -41,6 +41,7 @@ $(function(){
                     $("#dPrincipal").load("noivos.html");
                 }else{
                     alert("Senha inválida!");
+                    $("#iSenha").val('');
                 }
             });
         });

@@ -1,1 +1,61 @@
-<h1>Tela dos padrinhos</h1>
+<div class="container-fluid" id="dMain">
+    <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Nome:</label>
+                <input type="text" class="form-control" id="iNome" placeholder="Insira seu nome"/>
+            </div>
+            <div class="form-group" id="dPresentes">
+
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" id="bEnviar">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        const firebaseConfig = {
+            apiKey: "AIzaSyCfEVMcjvEc5aP48EGZKNGvApYBmpPxluw",
+            authDomain: "casamento-mateus.firebaseapp.com",
+            projectId: "casamento-mateus",
+            storageBucket: "casamento-mateus.appspot.com",
+            messagingSenderId: "514547738129",
+            appId: "1:514547738129:web:fc9ac8cfe7a68ad21433b0",
+            measurementId: "G-35M59W0GLJ"
+        };
+
+        if(!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const db = firebase.firestore();
+
+        db.collection("presentes_padrinhos").onSnapshot((data) => {
+            data.docs.map((val) => {
+
+                let quantidade = val.data().quantidade;
+                let descricao = val.data().descricao;
+                let disponivel = val.data().disponivel;
+
+                if(disponivel){
+                    $opcao = "<div class='input-group'>";
+                    $opcao += "<div class='input-group-prepend'>";
+                    $opcao += "<div class='input-group-text'>";
+                    $opcao += "<input type='radio' name='presente' value='";
+                    $opcao += "0" + quantidade + " " + descricao + "'>";
+                    $opcao += "</div>"; //Close div input-group-text
+                    $opcao += "</div>"; //Close div input-group-prepend
+                    $opcao += "<span>" + "0" + quantidade + " " + descricao + "'>" + "</span>";
+                    $opcao += "</div>"; //Close div input-group
+
+                    $("#dPresentes").append($opcao);
+                }
+            });
+        });
+    });
+</script>
