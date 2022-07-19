@@ -30,6 +30,8 @@
             data.docs.map((val) => {
                 let nome = val.data().nome;
                 let presente = val.data().presente;
+                console.log(nome);
+                console.log(presente);
 
                 $presente = "<div class='alert alert-success' style='margin-top: 10px;'>";
                 $presente += "<span><b>" + nome + "</b></span><br/>";
