@@ -47,7 +47,7 @@
                     $opcao = "<div class='input-group'>";
                     $opcao += "<div class='input-group-prepend'>";
                     $opcao += "<div class='input-group-text'>";
-                    $opcao += "<input type='radio' name='presente' value='";
+                    $opcao += "<input type='radio' presente-id='" + val.id + "' name='presente' value='";
                     $opcao += "0" + quantidade + " " + descricao + "'>";
                     $opcao += "</div>"; //Close div input-group-text
                     $opcao += "</div>"; //Close div input-group-prepend
@@ -72,6 +72,9 @@
                     nome: nome,
                     presente: presente
                 });
+
+                let presente_id = $("input[name='presente']:checked").attr("presente-id");
+                db.collection("presentes_padrinhos").doc(presente_id).update({disponivel: false});
 
                 alert("Enviado com sucesso!");
             }
