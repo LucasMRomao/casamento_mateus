@@ -36,6 +36,7 @@
         const db = firebase.firestore();
 
         db.collection("presentes_padrinhos").onSnapshot((data) => {
+            $("#dPresentes").html(""); //Limpa lista
             data.docs.map((val) => {
 
                 let quantidade = val.data().quantidade;
@@ -50,12 +51,30 @@
                     $opcao += "0" + quantidade + " " + descricao + "'>";
                     $opcao += "</div>"; //Close div input-group-text
                     $opcao += "</div>"; //Close div input-group-prepend
-                    $opcao += "<span>" + "0" + quantidade + " " + descricao + "'>" + "</span>";
+                    $opcao += "<span>" + "0" + quantidade + " " + descricao + "</span>";
                     $opcao += "</div>"; //Close div input-group
 
                     $("#dPresentes").append($opcao);
                 }
             });
+        });
+
+        $("#bEnviar").click(function(){
+            let nome = $("#iNome").val();
+            let presente = $("input[name='presente']:checked").val();
+
+            if(nome == '' || nome == undefined || nome == null){
+                alert("Por favor, insira seu nome!");
+            }else if(presente == undefined){
+                alert("Por favor, selecione um presente!");
+            }else{
+                db.collection("presentes_selecionados").add({
+                    nome: nome,
+                    presente: presente
+                });
+
+                alert("Enviado com sucesso!");
+            }
         });
     });
 </script>
