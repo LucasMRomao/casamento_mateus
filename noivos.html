@@ -64,6 +64,7 @@
             <h2>Deseja realmente excluir o presente selecionado?</h2>
             <input type="text" style="display:none;" id="sTipoUsuario" />
             <input type="text" style="display:none;" id="sIdPresente" />
+            <input type="text" style="display:none;" id="sIdSelecao" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
@@ -129,8 +130,8 @@
                 $presente += "<div class='row'>"
                 $presente += "<div class='col-1'>";
                 $presente += "<button class='deletePresente' data-toggle='modal' data-target='#modalConfirmarExclusao' presente-id='";
-                $presente += id_presente + "' tipo-pessoa='" + tipo_pessoa + "'>";
-                $presente += "<img class='img-fluid' src='remove.png' /></button>"
+                $presente += id_presente + "' tipo-pessoa='" + tipo_pessoa + "' id-selecao='" + val.id + "'>";
+                $presente += "<img class='img-fluid' src='remove.png' /></button>";
                 $presente += "</div>"; //Close div col-1
                 $presente += "<div class='col-11'>";
                 $presente += "<span><b>" + nome + "</b></span><br/>";
@@ -144,8 +145,10 @@
             $(".deletePresente").click(function(){
                 let idPresente = $(this).attr("presente-id");
                 let tipo_pessoa = $(this).attr("tipo-pessoa");
+                let id_selecao = $(this).attr("id-selecao");
                 $("#sTipoUsuario").val(tipo_pessoa);
                 $("#sIdPresente").val(idPresente);
+                $("#sIdSelecao").val(id_selecao);
             });
         });
 
@@ -186,19 +189,37 @@
         $("#bExcluirPresente").click(function(){
             let tipo_pessoa = $("#sTipoUsuario").val();
             let id_presente = $("#sIdPresente").val();
+            let id_selecao = $("#sIdSelecao").val();
             let contPresente;
 
             if(tipo_pessoa == 'padrinho'){
-                console.log(db.collection("presentes_padrinhos").doc(id_presente).get("quantidade"));
+                
+                db.collection("presentes_padrinhos").onSnapshot((data) => {
+                    data.docs.map((val) =>{
+                        if(val.id == id_presente){
+                            contPresente = val.data().quantidade;
+                        }
+                    })
+                });
+
                 contPresente++;
 
                 db.collection("presentes_padrinhos").doc(id_presente).update({quantidade: contPresente});
             }else if(tipo_pessoa == 'convidado'){
-                console.log(db.collection("presentes").doc(id_presente).get("quantidade"));
-                contPresente++;
+                
+                db.collection("presentes").onSnapshot((data) => {
+                    data.docs.map((val) =>{
+                        if(val.id == id_presente){
+                            contPresente = val.data().quantidade;
+                        }
+                    })
+                });
 
+                contPresente++;
                 db.collection("presentes").doc(id_presente).update({quantidade: contPresente});
             }
+
+            db.collection("presentes_selecionados").doc(id_selecao).delete();
         });
     });
 </script>
