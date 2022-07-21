@@ -121,6 +121,7 @@
                 let nome = val.data().nome;
                 let presente = val.data().presente;
                 let tipo_pessoa = val.data().tipo_pessoa;
+                let id_presente = val.data().presente_id;
                 console.log(nome);
                 console.log(presente);
 
@@ -128,7 +129,7 @@
                 $presente += "<div class='row'>"
                 $presente += "<div class='col-1'>";
                 $presente += "<button class='deletePresente' data-toggle='modal' data-target='#modalConfirmarExclusao' presente-id='";
-                $presente += val.id + "' tipo-pessoa='" + tipo_pessoa + "'>";
+                $presente += id_presente + "' tipo-pessoa='" + tipo_pessoa + "'>";
                 $presente += "<img class='img-fluid' src='remove.png' /></button>"
                 $presente += "</div>"; //Close div col-1
                 $presente += "<div class='col-11'>";
