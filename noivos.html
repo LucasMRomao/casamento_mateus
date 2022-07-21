@@ -143,8 +143,8 @@
             $(".deletePresente").click(function(){
                 let idPresente = $(this).attr("presente-id");
                 let tipo_pessoa = $(this).attr("tipo-pessoa");
-                $("#sTipoUsuario").text(tipo_pessoa);
-                $("#sIdPresente").text(idPresente);
+                $("#sTipoUsuario").val(tipo_pessoa);
+                $("#sIdPresente").val(idPresente);
             });
         });
 
