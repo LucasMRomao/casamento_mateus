@@ -62,8 +62,8 @@
         </div>
         <div class="modal-body">
             <h2>Deseja realmente excluir o presente selecionado?</h2>
-            <span class="sr-only" id="sTipoUsuario"></span>
-            <span class="sr-only" id="sIdPresente"></span>
+            <input type="text" style="display:none;" id="sTipoUsuario" />
+            <input type="text" style="display:none;" id="sIdPresente" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
@@ -183,8 +183,8 @@
         });
 
         $("#bExcluirPresente").click(function(){
-            let tipo_pessoa = $("#sTipoUsuario").text();
-            let id_presente = $("#sIdPresente").text();
+            let tipo_pessoa = $("#sTipoUsuario").val();
+            let id_presente = $("#sIdPresente").val();
 
             alert("Excluir: " + tipo_pessoa + " - " + id_presente);
         });
