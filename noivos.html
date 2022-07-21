@@ -185,8 +185,29 @@
         $("#bExcluirPresente").click(function(){
             let tipo_pessoa = $("#sTipoUsuario").val();
             let id_presente = $("#sIdPresente").val();
+            let contPresente = 0;
 
-            alert("Excluir: " + tipo_pessoa + " - " + id_presente);
+            if(tipo_pessoa == 'padrinho'){
+                db.collection("presentes_padrinhos").onSnapshot((data) => {
+                    data.docs.map((val) => {
+                        if(val.id == id_presente){
+                            contPresente = val.data().quantidade + 1;
+                        }
+                    });
+                });
+
+                db.collection("presentes_padrinhos").doc(id_presente).update({quantidade: contPresente});
+            }else if(tipo_pessoa == 'convidado'){
+                db.collection("presentes").onSnapshot((data) => {
+                    data.docs.map((val) => {
+                        if(val.id == id_presente){
+                            contPresente = val.data().quantidade + 1;
+                        }
+                    });
+                });
+
+                db.collection("presentes").doc(id_presente).update({quantidade: contPresente});
+            }
         });
     });
 </script>
