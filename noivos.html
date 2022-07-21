@@ -189,12 +189,12 @@
             let contPresente;
 
             if(tipo_pessoa == 'padrinho'){
-                console.log(db.collection("presentes_padrinhos").doc(id_presente));
+                console.log(db.collection("presentes_padrinhos").doc(id_presente).get("quantidade"));
                 contPresente++;
 
                 db.collection("presentes_padrinhos").doc(id_presente).update({quantidade: contPresente});
             }else if(tipo_pessoa == 'convidado'){
-                console.log(db.collection("presentes").doc(id_presente));
+                console.log(db.collection("presentes").doc(id_presente).get("quantidade"));
                 contPresente++;
 
                 db.collection("presentes").doc(id_presente).update({quantidade: contPresente});
