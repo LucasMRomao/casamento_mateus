@@ -50,6 +50,29 @@
     </div>
 </div>
 
+<!--Modal confirmar exclusão presente-->
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirmar exclusão</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <h2>Deseja realmente excluir o presente selecionado?</h2>
+            <span class="sr-only" id="sTipoUsuario"></span>
+            <span class="sr-only" id="sIdPresente"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bExcluirPresente">Sim</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid" id="dMain">
     <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
         <div class="row">
@@ -97,15 +120,16 @@
             data.docs.map((val) => {
                 let nome = val.data().nome;
                 let presente = val.data().presente;
+                let tipo_pessoa = val.data().tipo_pessoa;
                 console.log(nome);
                 console.log(presente);
 
                 $presente = "<div class='alert alert-success' style='margin-top: 10px;'>";
                 $presente += "<div class='row'>"
                 $presente += "<div class='col-1'>";
-                $presente += "<a href='#' class='deletePresente' presente-id='";
-                $presente += val.id + "'>";
-                $presente += "<img class='img-fluid' src='remove.png' /></a>"
+                $presente += "<button data-toggle='modal' data-target='#modalConfirmarExclusao' presente-id='";
+                $presente += val.id + "' tipo-pessoa='" + tipo_pessoa + "'>";
+                $presente += "<img class='img-fluid' src='remove.png' /></button>"
                 $presente += "</div>"; //Close div col-1
                 $presente += "<div class='col-11'>";
                 $presente += "<span><b>" + nome + "</b></span><br/>";
@@ -117,8 +141,11 @@
             });
 
             $(".deletePresente").click(function(){
-                alert("Delete presente: " + $(this).attr("presente-id"));
-            })
+                let idPresente = $(this).attr("presente-id");
+                let tipo_pessoa = $(this).attr("tipo-pessoa");
+                $("#sTipoUsuario").text(tipo_pessoa);
+                $("#sIdPresente").text(idPresente);
+            });
         });
 
         $("#bCancelarNoivos").click(function(){
@@ -153,6 +180,13 @@
                 alert("Senha alterada com sucesso!");
                 $("#iNovaSenhaPadrinhos").val('');
             }
+        });
+
+        $("#bExcluirPresente").click(function(){
+            let tipo_pessoa = $("#sTipoUsuario").text();
+            let id_presente = $("#sIdPresente").text();
+
+            alert("Excluir: " + tipo_pessoa + " - " + id_presente);
         });
     });
 </script>

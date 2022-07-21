@@ -68,13 +68,16 @@
             }else if(presente == undefined){
                 alert("Por favor, selecione um presente!");
             }else{
-                db.collection("presentes_selecionados").add({
-                    nome: nome,
-                    presente: presente
-                });
-
                 let presente_id = $("input[name='presente']:checked").attr("presente-id");
                 let presente_cont = $("input[name='presente']:checked").attr("presente-cont");
+
+                db.collection("presentes_selecionados").add({
+                    nome: nome,
+                    presente: presente,
+                    tipo_pessoa: 'padrinho',
+                    presente_id: presente_id
+                });
+
                 db.collection("presentes_padrinhos").doc(presente_id).update({quantidade: presente_cont - 1});
 
                 alert("Enviado com sucesso!");
