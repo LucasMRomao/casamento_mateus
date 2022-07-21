@@ -101,11 +101,24 @@
                 console.log(presente);
 
                 $presente = "<div class='alert alert-success' style='margin-top: 10px;'>";
+                $presente += "<div class='row'>"
+                $presente += "<div class='col-1'>";
+                $presente += "<a href='#' class='deletePresente' presente-id='";
+                $presente += val.id + "'>";
+                $presente += "<img class='' src='remove.png' /></a>"
+                $presente += "</div>"; //Close div col-1
+                $presente += "<div class='col-11'>";
                 $presente += "<span><b>" + nome + "</b></span><br/>";
                 $presente += "<span>" + presente + "</span>";
+                $presente += "</div>"; //Close div col-11
+                $presente += "</div>"; //Close div row
                 $presente += "</div>"; //Close div alert
                 $("#dListaPresentes").append($presente);
             });
+
+            $(".deletePresente").click(function(){
+                alert("Delete presente: " + $(this).attr("presente-id"));
+            })
         });
 
         $("#bCancelarNoivos").click(function(){
