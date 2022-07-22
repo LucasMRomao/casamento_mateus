@@ -197,13 +197,14 @@
                 db.collection("presentes_padrinhos").onSnapshot((data) => {
                     data.docs.map((val) =>{
                         if(val.id == id_presente){
-                            contPresente = val.data().quantidade;
+                            contPresente = Number(val.data().quantidade);
                             console.log(val.data().quantidade);
                         }
                     })
                 });
 
                 contPresente++;
+                console.log(contPresente);
 
                 db.collection("presentes_padrinhos").doc(id_presente).update({quantidade: contPresente});
             }else if(tipo_pessoa == 'convidado'){
@@ -211,13 +212,14 @@
                 db.collection("presentes").onSnapshot((data) => {
                     data.docs.map((val) =>{
                         if(val.id == id_presente){
-                            contPresente = val.data().quantidade;
+                            contPresente = Number(val.data().quantidade);
                             console.log(val.data().quantidade);
                         }
                     })
                 });
 
                 contPresente++;
+                console.log(contPresente);
                 db.collection("presentes").doc(id_presente).update({quantidade: contPresente});
             }
 
