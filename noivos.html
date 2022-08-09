@@ -235,7 +235,7 @@
 
         //Listagem de presentes padrinhos
         db.collection("presentes_padrinhos").orderBy("descricao", "asc").onSnapshot((data) => {
-            $("#tableConvidados>tbody").html("");
+            $("#tablePadrinhos>tbody").html("");
             data.docs.map((val) => {
                 let descricao = val.data().descricao;
                 let quantidade = val.data().quantidade;
