@@ -105,6 +105,7 @@
                         <thead>
                         <tr>
                             <th scope="col">Descrição</th>
+                            <th scope="col">Quantidade</th>
                             <th scope="col">Ações</th>
                         </tr>
                         </thead>
@@ -148,6 +149,14 @@
     }
 
     function excluirPresente(id, descricao){
+        console.log("Excluir: " + id + " - " + descricao);
+    }
+
+    function editarPresentePadrinho(id, descricao, quantidade){
+        console.log("Editar: " + id + " - " + descricao + " - " + quantidade);
+    }
+
+    function excluirPresentePadrinho(id, descricao){
         console.log("Excluir: " + id + " - " + descricao);
     }
 
@@ -206,7 +215,9 @@
             });
         });
 
+        //Listagem de presentes convidados
         db.collection("presentes").orderBy("descricao", "asc").onSnapshot((data) => {
+            $("#tableConvidados>tbody").html("");
             data.docs.map((val) => {
                 let descricao = val.data().descricao;
                 let quantidade = val.data().quantidade;
@@ -217,6 +228,26 @@
                 presente += "<td> <button class='btn btn-outline-warning btn-sm' onclick='editarPresente(\'" + val.id + "\', \'" + descricao + "\', \'" + quantidade + "\')'>Editar</button>&nbsp;";
                 presente += "<button class='btn btn-outline-danger btn-sm' onclick='excluirPresente(\'" + val.id + "\', \'" + descricao + "\')'>Excluir</button>";
                 presente += "</tr>";
+
+                $("#tableConvidados>tbody").append(presente);
+            });
+        });
+
+        //Listagem de presentes padrinhos
+        db.collection("presentes_padrinhos").orderBy("descricao", "asc").onSnapshot((data) => {
+            $("#tableConvidados>tbody").html("");
+            data.docs.map((val) => {
+                let descricao = val.data().descricao;
+                let quantidade = val.data().quantidade;
+
+                let presente = "<tr>";
+                presente += "<td>" + descricao  + "</td>";
+                presente += "<td>" + quantidade + "</td>";
+                presente += "<td> <button class='btn btn-outline-warning btn-sm' onclick='editarPresentePadrinho(\'" + val.id + "\', \'" + descricao + "\', \'" + quantidade + "\')'>Editar</button>&nbsp;";
+                presente += "<button class='btn btn-outline-danger btn-sm' onclick='excluirPresentePadrinho(\'" + val.id + "\', \'" + descricao + "\')'>Excluir</button>";
+                presente += "</tr>";
+
+                $("#tablePadrinhos>tbody").append(presente);
             });
         });
 
