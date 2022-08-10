@@ -90,13 +90,13 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Descrição:</span>
                 </div>
-                <input type="text" id="iEdDescricaoConvidado" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" id="iEdDescricaoConvidado" class="form-control" placeholder="Descrição" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Quantidade:</span>
                 </div>
-                <input type="number" id="iEdQuantidadeConvidado" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="number" id="iEdQuantidadeConvidado" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
             </div>
         </div>
         <div class="modal-footer">
@@ -123,13 +123,13 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Descrição:</span>
                 </div>
-                <input type="text" id="iEdDescricaoPadrinho" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" id="iEdDescricaoPadrinho" class="form-control" placeholder="Descrição" aria-label="Username" aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Quantidade:</span>
                 </div>
-                <input type="number" id="iEdQuantidadePadrinho" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="number" id="iEdQuantidadePadrinho" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
             </div>
         </div>
         <div class="modal-footer">
@@ -157,7 +157,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresenteConvidado">Salvar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresenteConvidado">Confirmar</button>
         </div>
       </div>
     </div>
@@ -180,7 +180,49 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresentePadrinho">Salvar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresentePadrinho">Confirmar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--Modal adicionar presente-->
+<div class="modal fade" id="modalAdicionarPresente" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir presente (padrinhos)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Selecione a lista a ser adicionada:</span>
+                </div>
+                <select class="form-control" id="sTipoUsuarioAdicionarPresente">
+                    <option value="0" selected></option>
+                    <option value="1">Convidados</option>
+                    <option value="2">Padrinhos</option>
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Descrição:</span>
+                </div>
+                <input type="text" id="iDescricaoAdicionar" class="form-control" placeholder="Descrição" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Quantidade:</span>
+                </div>
+                <input type="number" id="iQuantidadeAdicionar" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="bCancelarAdicionarPresente">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarAdicionarPresente">Salvar</button>
         </div>
       </div>
     </div>
@@ -201,6 +243,9 @@
             <div class="col-12">
                 <h2>Presentes selecionados</h2>
             </div>
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdicionarPresente">Adicionar presente</button>
         </div>
         <div id="dListaPresentes">
 
@@ -499,6 +544,47 @@
                     alert("Não é possível excluir presentes já selecionados!");
                 }
             });
+        });
+
+        $("#bConfirmarAdicionarPresente").click(() => {
+            let tipo_usuario = $("#sTipoUsuarioAdicionarPresente option:selected").val();
+            let descricao = $("#iDescricaoAdicionar").val();
+            let quantidade = $("#iQuantidadeAdicionar").val();
+
+
+            if(tipo_usuario == "0" || !descricao || !quantidade){
+                alert("Por favor, insira todas as informações!");
+            }else{
+                if(tipo_usuario == "1"){ //Convidados
+                    db.collection("presentes").add({
+                        descricao: descricao,
+                        quantidade: quantidade,
+                        disponivel: true
+                    });
+
+                    alert("Presente adicionado!");
+                    $("#sTipoUsuarioAdicionarPresente").val("0");
+                    $("#iDescricaoAdicionar").val("");
+                    $("#iQuantidadeAdicionar").val("");
+                }else if(tipo_usuario == "2"){ //Padrinhos
+                    db.collection("presentes_padrinhos").add({
+                        descricao: descricao,
+                        quantidade: quantidade,
+                        disponivel: true
+                    });
+
+                    alert("Presente adicionado!");
+                    $("#sTipoUsuarioAdicionarPresente").val("0");
+                    $("#iDescricaoAdicionar").val("");
+                    $("#iQuantidadeAdicionar").val("");
+                }
+            }
+        });
+
+        $("#bCancelarAdicionarPresente").click(() => {
+            $("#sTipoUsuarioAdicionarPresente").val("0");
+            $("#iDescricaoAdicionar").val("");
+            $("#iQuantidadeAdicionar").val("");
         });
     });
 </script>
