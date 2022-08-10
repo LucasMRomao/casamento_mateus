@@ -74,6 +74,72 @@
     </div>
 </div>
 
+<!--Modal editar presente convidados-->
+<div class="modal fade" id="modalEditarPresenteConvidado" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar presente (convidados)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div style="display:none;"><input type="text" id="iIDEdPresenteConvidado" /></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Descrição:</span>
+                </div>
+                <input type="text" id="iEdDescricaoConvidado" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Quantidade:</span>
+                </div>
+                <input type="number" id="iEdQuantidadeConvidado" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarEdicaoPresenteConvidado">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--Modal editar presente padrinhos-->
+<div class="modal fade" id="modalEditarPresentePadrinho" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar presente (padrinhos)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div style="display:none;"><input type="text" id="iIDEdPresentePadrinho" /></div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Descrição:</span>
+                </div>
+                <input type="text" id="iEdDescricaoPadrinho" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Quantidade:</span>
+                </div>
+                <input type="number" id="iEdQuantidadePadrinho" class="form-control" placeholder="Senha" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarEdicaoPresenteConvidado">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid" id="dMain">
     <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
         <div class="row">
@@ -145,19 +211,23 @@
 <script type="text/javascript">
 
     function editarPresente(id, descricao, quantidade){
-        console.log("Editar: " + id + " - " + descricao + " - " + quantidade);
+        $("#iIDEdPresenteConvidado").val(id);
+        $("#iEdDescricaoConvidado").val(descricao);
+        $("#iEdQuantidadeConvidado").val(quantidade);
     }
 
     function excluirPresente(id, descricao){
-        console.log("Excluir: " + id + " - " + descricao);
+        
     }
 
     function editarPresentePadrinho(id, descricao, quantidade){
-        console.log("Editar: " + id + " - " + descricao + " - " + quantidade);
+        $("#iIDEdPresentePadrinho").val(id);
+        $("#iEdDescricaoPadrinho").val(descricao);
+        $("#iEdQuantidadePadrinho").val(quantidade);
     }
 
     function excluirPresentePadrinho(id, descricao){
-        console.log("Excluir: " + id + " - " + descricao);
+        
     }
 
     $(function(){
@@ -225,8 +295,8 @@
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
                 presente += "<td>" + quantidade + "</td>";
-                presente += "<td> <button class='btn btn-outline-warning btn-sm' onclick='editarPresente(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
-                presente += "<button class='btn btn-outline-danger btn-sm' onclick='excluirPresente(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
+                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresenteConvidado' onclick='editarPresente(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
+                presente += "<button class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#modalExcluirPresenteConvidado' onclick='excluirPresente(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
                 presente += "</tr>";
 
                 $("#tableConvidados>tbody").append(presente);
@@ -243,8 +313,8 @@
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
                 presente += "<td>" + quantidade + "</td>";
-                presente += "<td> <button class='btn btn-outline-warning btn-sm' onclick='editarPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
-                presente += "<button class='btn btn-outline-danger btn-sm' onclick='excluirPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
+                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresentePadrinho' onclick='editarPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
+                presente += "<button class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#modalExcluirPresentePadrinho' onclick='excluirPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
                 presente += "</tr>";
 
                 $("#tablePadrinhos>tbody").append(presente);
