@@ -134,7 +134,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarEdicaoPresenteConvidado">Salvar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarEdicaoPresentePadrinho">Salvar</button>
         </div>
       </div>
     </div>
@@ -383,6 +383,44 @@
             }
 
             db.collection("presentes_selecionados").doc(id_selecao).delete();
+        });
+
+        $("#bConfirmarEdicaoPresenteConvidado").click(() => {
+            let id = $("#iIDEdPresenteConvidado").val();
+            let descricao = $("#iEdDescricaoConvidado").val();
+            let quantidade = $("#iEdQuantidadeConvidado").val();
+
+            if(!descricao){
+                alert("Por favor, insira uma descrição!");
+            }else if(!quantidade){
+                alert("Por favor, insira uma quantidade válida!");
+            }else{
+                db.collection("presentes").doc(id).update({
+                    descricao: descricao,
+                    quantidade: quantidade
+                });
+
+                alert("Presente editado!");
+            }
+        });
+
+        $("#bConfirmarEdicaoPresentePadrinho").click(() => {
+            let id = $("#iIDEdPresentePadrinho").val();
+            let descricao = $("#iEdDescricaoPadrinho").val();
+            let quantidade = $("#iEdQuantidadePadrinho").val();
+
+            if(!descricao){
+                alert("Por favor, insira uma descrição!");
+            }else if(!quantidade){
+                alert("Por favor, insira uma quantidade válida!");
+            }else{
+                db.collection("presentes_padrinhos").doc(id).update({
+                    descricao: descricao,
+                    quantidade: quantidade
+                });
+
+                alert("Presente editado!");
+            }
         });
     });
 </script>
