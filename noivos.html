@@ -140,6 +140,52 @@
     </div>
 </div>
 
+<!--Modal excluir presente convidados-->
+<div class="modal fade" id="modalExcluirPresenteConvidado" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir presente (convidados)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div style="display:none;"><input type="text" id="iIDExcPresenteConvidado" /></div>
+            <h3>Deseja realmente excluir o seguinte presente?</h3>
+            <span id="sPresenteExcluirConvidado"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresenteConvidado">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!--Modal excluir presente padrinhos-->
+<div class="modal fade" id="modalExcluirPresentePadrinho" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir presente (padrinhos)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div style="display:none;"><input type="text" id="iIDExcPresentePadrinho" /></div>
+            <h3>Deseja realmente excluir o seguinte presente?</h3>
+            <span id="sPresenteExcluirPadrinho"></span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="bConfirmarExcluirPresentePadrinho">Salvar</button>
+        </div>
+      </div>
+    </div>
+</div>
+
 <div class="container-fluid" id="dMain">
     <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
         <div class="row">
@@ -217,7 +263,8 @@
     }
 
     function excluirPresente(id, descricao){
-        
+        $("#iIDExcPresenteConvidado").val(id);
+        $("#sPresenteExcluirConvidado").text(descricao);
     }
 
     function editarPresentePadrinho(id, descricao, quantidade){
@@ -227,7 +274,8 @@
     }
 
     function excluirPresentePadrinho(id, descricao){
-        
+        $("#iIDExcPresentePadrinho").val(id);
+        $("#sPresenteExcluirPadrinho").text(descricao);
     }
 
     $(function(){
@@ -425,6 +473,32 @@
 
                 alert("Presente editado!");
             }
+        });
+
+        $("#bConfirmarExcluirPresenteConvidado").click(() => {
+            let idPresente = $("#iIDExcPresenteConvidado").val();
+
+            db.collection("presentes_selecionados").where("presente_id", "==", idPresente).get().then((docs) => {
+                if(docs.empty){
+                    db.collection("presentes").doc(idPresente).delete();
+                    alert("Presente excluído!");
+                }else{
+                    alert("Não é possível excluir presentes já selecionados!");
+                }
+            });
+        });
+
+        $("#bConfirmarExcluirPresentePadrinho").click(() => {
+            let idPresente = $("#iIDExcPresentePadrinho").val();
+
+            db.collection("presentes_selecionados").where("presente_id", "==", idPresente).get().then((docs) => {
+                if(docs.empty){
+                    db.collection("presentes_padrinhos").doc(idPresente).delete();
+                    alert("Presente excluído!");
+                }else{
+                    alert("Não é possível excluir presentes já selecionados!");
+                }
+            });
         });
     });
 </script>
