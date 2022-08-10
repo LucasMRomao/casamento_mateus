@@ -392,8 +392,10 @@
 
             if(!descricao){
                 alert("Por favor, insira uma descrição!");
+                return false;
             }else if(!quantidade){
                 alert("Por favor, insira uma quantidade válida!");
+                return false;
             }else{
                 db.collection("presentes").doc(id).update({
                     descricao: descricao,
@@ -411,8 +413,10 @@
 
             if(!descricao){
                 alert("Por favor, insira uma descrição!");
+                return false;
             }else if(!quantidade){
                 alert("Por favor, insira uma quantidade válida!");
+                return false;
             }else{
                 db.collection("presentes_padrinhos").doc(id).update({
                     descricao: descricao,
