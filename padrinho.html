@@ -35,7 +35,7 @@
         const provider = new firebase.auth.GoogleAuthProvider();
         const db = firebase.firestore();
 
-        db.collection("presentes_padrinhos").onSnapshot((data) => {
+        db.collection("presentes_padrinhos").orderBy("descricao", "asc").onSnapshot((data) => {
             $("#dPresentes").html(""); //Limpa lista
             data.docs.map((val) => {
 
