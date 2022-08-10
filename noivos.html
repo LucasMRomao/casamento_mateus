@@ -191,7 +191,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Excluir presente (padrinhos)</h5>
+          <h5 class="modal-title">Adicionar presente</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -552,8 +552,15 @@
             let quantidade = $("#iQuantidadeAdicionar").val();
 
 
-            if(tipo_usuario == "0" || !descricao || !quantidade){
-                alert("Por favor, insira todas as informações!");
+            if(tipo_usuario == "0"){
+                alert("Selecione a lista a ser adicionada!");
+                return false;
+            }else if(descricao == ""){
+                alert("Insira uma descrição!")
+                return false;
+            }else if(!quantidade){
+                alert("Insira uma quantidade válida!");
+                return false;
             }else{
                 if(tipo_usuario == "1"){ //Convidados
                     db.collection("presentes").add({
