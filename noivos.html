@@ -546,7 +546,7 @@
                         quantidade: quantidade,
                         disponivel: novo_disponivel
                     });
-                    
+
                 });
 
                 alert("Presente editado!");
@@ -599,7 +599,7 @@
                     db.collection("presentes").add({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: true
+                        disponivel: quantidade
                     });
 
                     alert("Presente adicionado!");
@@ -610,7 +610,7 @@
                     db.collection("presentes_padrinhos").add({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: true
+                        disponivel: quantidade
                     });
 
                     alert("Presente adicionado!");
