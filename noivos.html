@@ -85,7 +85,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <div style="display:none;"><input type="text" id="iIDEdPresenteConvidado" /></div>
+            <div style="display:none;">
+                <input type="text" id="iIDEdPresenteConvidado" />
+                <input type="text" id="iQuantPresenteConvidado" />
+            </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Descrição:</span>
@@ -118,7 +121,10 @@
           </button>
         </div>
         <div class="modal-body">
-            <div style="display:none;"><input type="text" id="iIDEdPresentePadrinho" /></div>
+            <div style="display:none;">
+                <input type="text" id="iIDEdPresentePadrinho" />
+                <input type="text" id="iQuantPresentePadrinho" />
+            </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="basic-addon1">Descrição:</span>
@@ -305,6 +311,7 @@
 
     function editarPresente(id, descricao, quantidade){
         $("#iIDEdPresenteConvidado").val(id);
+        $("#iQuantPresenteConvidado").val(quantidade);
         $("#iEdDescricaoConvidado").val(descricao);
         $("#iEdQuantidadeConvidado").val(quantidade);
     }
@@ -316,6 +323,7 @@
 
     function editarPresentePadrinho(id, descricao, quantidade){
         $("#iIDEdPresentePadrinho").val(id);
+        $("#iQuantPresentePadrinho").val(quantidade);
         $("#iEdDescricaoPadrinho").val(descricao);
         $("#iEdQuantidadePadrinho").val(quantidade);
     }
@@ -486,6 +494,7 @@
 
         $("#bConfirmarEdicaoPresenteConvidado").click(() => {
             let id = $("#iIDEdPresenteConvidado").val();
+            let quantidade_old = $("#iQuantPresenteConvidado").val();
             let descricao = $("#iEdDescricaoConvidado").val();
             let quantidade = $("#iEdQuantidadeConvidado").val();
 
@@ -496,9 +505,17 @@
                 alert("Por favor, insira uma quantidade válida!");
                 return false;
             }else{
-                db.collection("presentes").doc(id).update({
-                    descricao: descricao,
-                    quantidade: quantidade
+                let disponivel_adicionar = Number(Number(quantidade) - Number(quantidade_old));
+
+                db.collection("presentes").doc(id).get().then((doc) => {
+              
+                    let novo_disponivel = Number(doc.data().disponivel) + disponivel_adicionar;
+                    
+                    db.collection("presentes").doc(id).update({
+                        descricao: descricao,
+                        quantidade: quantidade,
+                        disponivel: novo_disponivel
+                    });
                 });
 
                 alert("Presente editado!");
@@ -507,6 +524,7 @@
 
         $("#bConfirmarEdicaoPresentePadrinho").click(() => {
             let id = $("#iIDEdPresentePadrinho").val();
+            let quantidade_old = $("#iQuantPresentePadrinho").val();
             let descricao = $("#iEdDescricaoPadrinho").val();
             let quantidade = $("#iEdQuantidadePadrinho").val();
 
@@ -517,9 +535,18 @@
                 alert("Por favor, insira uma quantidade válida!");
                 return false;
             }else{
-                db.collection("presentes_padrinhos").doc(id).update({
-                    descricao: descricao,
-                    quantidade: quantidade
+                let disponivel_adicionar = Number(Number(quantidade) - Number(quantidade_old));
+
+                db.collection("presentes_padrinhos").doc(id).get().then((doc) => {
+              
+                    let novo_disponivel = Number(doc.data().disponivel) + disponivel_adicionar;
+                    
+                    db.collection("presentes").doc(id).update({
+                        descricao: descricao,
+                        quantidade: quantidade,
+                        disponivel: novo_disponivel
+                    });
+                    
                 });
 
                 alert("Presente editado!");
