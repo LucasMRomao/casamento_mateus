@@ -472,18 +472,18 @@
                 
                 db.collection("presentes_padrinhos").doc(id_presente).get().then((doc) => {
                     if(doc.exists){
-                        let quant = doc.data().quantidade;
-                        quant++;
-                        db.collection("presentes_padrinhos").doc(id_presente).update({quantidade: quant});
+                        let disponivel = doc.data().disponivel;
+                        disponivel++;
+                        db.collection("presentes_padrinhos").doc(id_presente).update({disponivel: disponivel});
                     }
                 });
             }else if(tipo_pessoa == 'convidado'){
                 
                 db.collection("presentes").doc(id_presente).get().then((doc) => {
                     if(doc.exists){
-                        let quant = doc.data().quantidade;
-                        quant++;
-                        db.collection("presentes").doc(id_presente).update({quantidade: quant});
+                        let disponivel = doc.data().disponivel;
+                        disponivel++;
+                        db.collection("presentes").doc(id_presente).update({disponivel: disponivel});
                     }
                 });
                 
