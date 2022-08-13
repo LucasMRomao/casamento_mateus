@@ -43,15 +43,15 @@
                 let descricao = val.data().descricao;
                 let disponivel = val.data().disponivel;
 
-                if(quantidade > 0){
+                if(disponivel > 0){
                     $opcao = "<div class='input-group'>";
                     $opcao += "<div class='input-group-prepend'>";
                     $opcao += "<div class='input-group-text'>";
-                    $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + quantidade + "' name='presente' value='";
+                    $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + disponivel + "' name='presente' value='";
                     $opcao += descricao + "'>";
                     $opcao += "</div>"; //Close div input-group-text
                     $opcao += "</div>"; //Close div input-group-prepend
-                    $opcao += "<span>" + "0" + quantidade + " " + descricao + "</span>";
+                    $opcao += "<span>" + "0" + disponivel + " " + descricao + "</span>";
                     $opcao += "</div>"; //Close div input-group
 
                     $("#dPresentes").append($opcao);
@@ -78,7 +78,7 @@
                     presente_id: presente_id
                 });
                 
-                db.collection("presentes").doc(presente_id).update({quantidade: presente_cont - 1});
+                db.collection("presentes").doc(presente_id).update({disponivel: presente_cont - 1});
 
                 alert("Enviado com sucesso!");
             }
