@@ -101,6 +101,12 @@
                 </div>
                 <input type="number" id="iEdQuantidadeConvidado" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Link item:</span>
+                </div>
+                <input type="number" id="iEdLinkItemConvidado" class="form-control" placeholder="Link item" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -136,6 +142,12 @@
                   <span class="input-group-text" id="basic-addon1">Quantidade:</span>
                 </div>
                 <input type="number" id="iEdQuantidadePadrinho" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Link item:</span>
+                </div>
+                <input type="text" id="iEdLinkItemPadrinho" class="form-control" placeholder="Link item" aria-label="Username" aria-describedby="basic-addon1">
             </div>
         </div>
         <div class="modal-footer">
@@ -260,14 +272,15 @@
     <div class="alert alert-success" role="alert" style="margin-top: 10px;">
         <div class="row">
             <div class="col-12">
-                <p class="text-center" style="font-weight: bold; font-size: 25px;">Lista de presentes (Convidados)</p>
+                <p class="text-center" style="font-weight: bold; font-size: 25px;">Lista de presentes (Padrinhos)</p>
             </div>
             <div class="col-12">
-                <div id="divListaPresentesConvidados">
-                    <table class="table table-hover table-dark" id="tableConvidados">
+                <div id="divListaPresentesPadrinhos">
+                    <table class="table table-hover table-dark" id="tablePadrinhos">
                         <thead>
                         <tr>
                             <th scope="col">Descrição</th>
+                            <th scope="col">Link item</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Disponível</th>
                             <th scope="col">Ações</th>
@@ -284,14 +297,15 @@
     <div class="alert alert-success" role="alert" style="margin-top: 10px;">
         <div class="row">
             <div class="col-12">
-                <p class="text-center" style="font-weight: bold; font-size: 25px;">Lista de presentes (Padrinhos)</p>
+                <p class="text-center" style="font-weight: bold; font-size: 25px;">Lista de presentes (Convidados)</p>
             </div>
             <div class="col-12">
-                <div id="divListaPresentesPadrinhos">
-                    <table class="table table-hover table-dark" id="tablePadrinhos">
+                <div id="divListaPresentesConvidados">
+                    <table class="table table-hover table-dark" id="tableConvidados">
                         <thead>
                         <tr>
                             <th scope="col">Descrição</th>
+                            <th scope="col">Link item</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Disponível</th>
                             <th scope="col">Ações</th>
@@ -309,11 +323,12 @@
 
 <script type="text/javascript">
 
-    function editarPresente(id, descricao, quantidade){
+    function editarPresente(id, descricao, quantidade, url_item){
         $("#iIDEdPresenteConvidado").val(id);
         $("#iQuantPresenteConvidado").val(quantidade);
         $("#iEdDescricaoConvidado").val(descricao);
         $("#iEdQuantidadeConvidado").val(quantidade);
+        $("#iEdLinkItemConvidado").val(url_item);
     }
 
     function excluirPresente(id, descricao){
@@ -321,11 +336,12 @@
         $("#sPresenteExcluirConvidado").text(descricao);
     }
 
-    function editarPresentePadrinho(id, descricao, quantidade){
+    function editarPresentePadrinho(id, descricao, quantidade, url_item){
         $("#iIDEdPresentePadrinho").val(id);
         $("#iQuantPresentePadrinho").val(quantidade);
         $("#iEdDescricaoPadrinho").val(descricao);
         $("#iEdQuantidadePadrinho").val(quantidade);
+        $("#iEdLinkItemPadrinho").val(url_item);
     }
 
     function excluirPresentePadrinho(id, descricao){
@@ -359,8 +375,6 @@
                 let presente = val.data().presente;
                 let tipo_pessoa = val.data().tipo_pessoa;
                 let id_presente = val.data().presente_id;
-                console.log(nome);
-                console.log(presente);
 
                 $presente = "<div class='alert alert-success' style='margin-top: 10px;'>";
                 $presente += "<div class='row'>"
@@ -393,14 +407,16 @@
             $("#tableConvidados>tbody").html("");
             data.docs.map((val) => {
                 let descricao = val.data().descricao;
+                let url_item = val.data().url_item;
                 let quantidade = val.data().quantidade;
                 let disponivel = val.data().disponivel;
 
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
+                presente += "<td>" + url_item ? "<a href='" + url_item + "' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>" + "</td>";
                 presente += "<td>" + quantidade + "</td>";
                 presente += "<td>" + disponivel + "</td>";
-                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresenteConvidado' onclick='editarPresente(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
+                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresenteConvidado' onclick='editarPresente(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\", \"" + url_item + "\")'>Editar</button>&nbsp;";
                 presente += "<button class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#modalExcluirPresenteConvidado' onclick='excluirPresente(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
                 presente += "</tr>";
 
@@ -413,14 +429,16 @@
             $("#tablePadrinhos>tbody").html("");
             data.docs.map((val) => {
                 let descricao = val.data().descricao;
+                let url_item = val.data().url_item;
                 let quantidade = val.data().quantidade;
                 let disponivel = val.data().disponivel;
 
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
+                presente += "<td>" + url_item ? "<a href='" + url_item + "' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>" + "</td>";
                 presente += "<td>" + quantidade + "</td>";
                 presente += "<td>" + disponivel + "</td>";
-                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresentePadrinho' onclick='editarPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\")'>Editar</button>&nbsp;";
+                presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresentePadrinho' onclick='editarPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\", \"" + url_item +  "\")'>Editar</button>&nbsp;";
                 presente += "<button class='btn btn-outline-danger btn-sm' data-toggle='modal' data-target='#modalExcluirPresentePadrinho' onclick='excluirPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\")'>Excluir</button>";
                 presente += "</tr>";
 
@@ -496,6 +514,7 @@
             let id = $("#iIDEdPresenteConvidado").val();
             let quantidade_old = $("#iQuantPresenteConvidado").val();
             let descricao = $("#iEdDescricaoConvidado").val();
+            let url_item = $("#iEdLinkItemConvidado").val();
             let quantidade = $("#iEdQuantidadeConvidado").val();
 
             if(!descricao){
@@ -514,7 +533,8 @@
                     db.collection("presentes").doc(id).update({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: novo_disponivel
+                        disponivel: novo_disponivel,
+                        url_item: url_item
                     });
                 });
 
@@ -526,6 +546,7 @@
             let id = $("#iIDEdPresentePadrinho").val();
             let quantidade_old = $("#iQuantPresentePadrinho").val();
             let descricao = $("#iEdDescricaoPadrinho").val();
+            let url_item = $("#iEdLinkItemPadrinho").val();
             let quantidade = $("#iEdQuantidadePadrinho").val();
 
             if(!descricao){
@@ -541,10 +562,11 @@
               
                     let novo_disponivel = Number(doc.data().disponivel) + disponivel_adicionar;
                     
-                    db.collection("presentes").doc(id).update({
+                    db.collection("presentes_padrinhos").doc(id).update({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: novo_disponivel
+                        disponivel: novo_disponivel,
+                        url_item: url_item
                     });
 
                 });
