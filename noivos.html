@@ -413,7 +413,7 @@
 
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
-                presente += "<td>" + (url_item ? "<a href='" + url_item + "' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>") + "</td>";
+                presente += "<td>" + (url_item ? "<a href='" + url_item + "' target='_blank' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>") + "</td>";
                 presente += "<td>" + quantidade + "</td>";
                 presente += "<td>" + disponivel + "</td>";
                 presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresenteConvidado' onclick='editarPresente(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\", \"" + url_item + "\")'>Editar</button>&nbsp;";
@@ -435,7 +435,7 @@
 
                 let presente = "<tr>";
                 presente += "<td>" + descricao  + "</td>";
-                presente += "<td>" + (url_item ? "<a href='" + url_item + "' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>") + "</td>";
+                presente += "<td>" + (url_item ? "<a href='" + url_item + "' target='_blank' class='btn btn-success'>Ver</a>" : "<span class='btn btn-danger'>Não enviado</span>") + "</td>";
                 presente += "<td>" + quantidade + "</td>";
                 presente += "<td>" + disponivel + "</td>";
                 presente += "<td> <button class='btn btn-outline-warning btn-sm' data-toggle='modal' data-target='#modalEditarPresentePadrinho' onclick='editarPresentePadrinho(\"" + val.id + "\", \"" + descricao + "\", \"" + quantidade + "\", \"" + url_item +  "\")'>Editar</button>&nbsp;";
