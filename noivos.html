@@ -237,6 +237,12 @@
                 </div>
                 <input type="number" id="iQuantidadeAdicionar" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Link item:</span>
+                </div>
+                <input type="number" id="iLinkItemAdicionar" class="form-control" placeholder="Quantidade" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" id="bCancelarAdicionarPresente">Cancelar</button>
@@ -604,6 +610,7 @@
         $("#bConfirmarAdicionarPresente").click(() => {
             let tipo_usuario = $("#sTipoUsuarioAdicionarPresente option:selected").val();
             let descricao = $("#iDescricaoAdicionar").val();
+            let url_item = $("#iLinkItemAdicionar").val();
             let quantidade = $("#iQuantidadeAdicionar").val();
 
 
@@ -621,7 +628,8 @@
                     db.collection("presentes").add({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: quantidade
+                        disponivel: quantidade,
+                        url_item: url_item
                     });
 
                     alert("Presente adicionado!");
@@ -632,7 +640,8 @@
                     db.collection("presentes_padrinhos").add({
                         descricao: descricao,
                         quantidade: quantidade,
-                        disponivel: quantidade
+                        disponivel: quantidade,
+                        url_item: url_item
                     });
 
                     alert("Presente adicionado!");
