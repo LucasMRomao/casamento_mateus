@@ -1,0 +1,8 @@
+#dPrincipal{
+    background-image: url('../../background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+}
