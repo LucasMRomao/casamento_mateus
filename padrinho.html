@@ -6,7 +6,17 @@
                 <input type="text" class="form-control" id="iNome" placeholder="Insira seu nome"/>
             </div>
             <div class="form-group" id="dPresentes">
+                <table class="table table-hover table-dark" id="tableSelecionarPresente">
+                    <thead>
+                    <tr>
+                        <th scope="col">Selecionar</th>
+                        <th scope="col">Descrição</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
+                    </tbody>
+                </table>
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" id="bEnviar">Enviar</button>
@@ -36,7 +46,7 @@
         const db = firebase.firestore();
 
         db.collection("presentes_padrinhos").orderBy("descricao", "asc").onSnapshot((data) => {
-            $("#dPresentes").html(""); //Limpa lista
+            $("#tableSelecionarPresente>tbody").html(""); //Limpa lista
             data.docs.map((val) => {
 
                 let quantidade = val.data().quantidade;
@@ -44,7 +54,7 @@
                 let disponivel = val.data().disponivel;
 
                 if(disponivel > 0){
-                    $opcao = "<div class='input-group'>";
+                    /*$opcao = "<div class='input-group'>";
                     $opcao += "<div class='input-group-prepend'>";
                     $opcao += "<div class='input-group-text'>";
                     $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + disponivel + "' name='presente' value='";
@@ -54,7 +64,19 @@
                     $opcao += "<span>" + "0" + disponivel + " " + descricao + "</span>";
                     $opcao += "</div>"; //Close div input-group
 
-                    $("#dPresentes").append($opcao);
+                    $("#dPresentes").append($opcao);*/
+
+                    $opcao = "<tr>";
+                    $opcao += "<td>";
+                    $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + disponivel + "' name='presente' value='";
+                    $opcao += descricao + "'>";
+                    $opcao += "</td>";
+                    $opcao += "<td>";
+                    $opcao += "<span>" + "0" + disponivel + " " + descricao + "</span>";
+                    $opcao += "</td>";
+                    $opcao += "</tr>";
+
+                    $("#tableSelecionarPresente>tbody").append($opcao);
                 }
             });
         });
