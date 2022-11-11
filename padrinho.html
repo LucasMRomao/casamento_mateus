@@ -9,7 +9,7 @@
                 <table class="table table-hover table-dark" id="tableSelecionarPresente">
                     <thead>
                     <tr>
-                        <th scope="col">Selecionar</th>
+                        <th scope="col" class="text-right">Selecionar</th>
                         <th scope="col">Descrição</th>
                     </tr>
                     </thead>
@@ -67,7 +67,7 @@
                     $("#dPresentes").append($opcao);*/
 
                     $opcao = "<tr>";
-                    $opcao += "<td>";
+                    $opcao += "<td class='text-right'>";
                     $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + disponivel + "' name='presente' value='";
                     $opcao += descricao + "'>";
                     $opcao += "</td>";
