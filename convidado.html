@@ -1,3 +1,10 @@
+<style>
+    a {
+        text-decoration: none;
+        color: white;
+    }
+</style>
+
 <div class="container-fluid" id="dMain">
     <div class="alert alert-primary" role="alert" style="margin-top: 10px;">
         <form>
@@ -52,6 +59,7 @@
                 let quantidade = val.data().quantidade;
                 let descricao = val.data().descricao;
                 let disponivel = val.data().disponivel;
+                let link = val.data().url_item;
 
                 if(disponivel > 0){
                     $opcao = "<tr>";
@@ -60,7 +68,7 @@
                     $opcao += descricao + "'>";
                     $opcao += "</td>";
                     $opcao += "<td>";
-                    $opcao += "<span>" + "0" + disponivel + " " + descricao + "</span>";
+                    $opcao += "<a href='" + link + "'>" + "0" + disponivel + " " + descricao + "</a>";
                     $opcao += "</td>";
                     $opcao += "</tr>";
 
