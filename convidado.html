@@ -6,7 +6,17 @@
                 <input type="text" class="form-control" id="iNome" placeholder="Insira seu nome"/>
             </div>
             <div class="form-group" id="dPresentes">
+                <table class="table table-hover table-dark" id="tableSelecionarPresente">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="text-right">Selecionar</th>
+                        <th scope="col">Descrição</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
+                    </tbody>
+                </table>
             </div>
             <div class="form-group">
                 <button type="button" class="btn btn-primary" id="bEnviar">Enviar</button>
@@ -44,17 +54,17 @@
                 let disponivel = val.data().disponivel;
 
                 if(disponivel > 0){
-                    $opcao = "<div class='input-group'>";
-                    $opcao += "<div class='input-group-prepend'>";
-                    $opcao += "<div class='input-group-text'>";
+                    $opcao = "<tr>";
+                    $opcao += "<td class='text-right'>";
                     $opcao += "<input type='radio' presente-id='" + val.id + "' presente-cont='" + disponivel + "' name='presente' value='";
                     $opcao += descricao + "'>";
-                    $opcao += "</div>"; //Close div input-group-text
-                    $opcao += "</div>"; //Close div input-group-prepend
+                    $opcao += "</td>";
+                    $opcao += "<td>";
                     $opcao += "<span>" + "0" + disponivel + " " + descricao + "</span>";
-                    $opcao += "</div>"; //Close div input-group
+                    $opcao += "</td>";
+                    $opcao += "</tr>";
 
-                    $("#dPresentes").append($opcao);
+                    $("#tableSelecionarPresente>tbody").append($opcao);
                 }
             });
         });
