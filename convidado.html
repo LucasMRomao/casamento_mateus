@@ -46,7 +46,7 @@
         const db = firebase.firestore();
 
         db.collection("presentes").orderBy("descricao", "asc").onSnapshot((data) => {
-            $("#dPresentes").html(""); //Limpa lista
+            $("#tableSelecionarPresente>tbody").html(""); //Limpa lista
             data.docs.map((val) => {
 
                 let quantidade = val.data().quantidade;
